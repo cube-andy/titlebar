@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">titlebar</string>
+    <string name="action_settings">Settings</string>
+
+    <!--设置-->
+    <string name="title_set">设置</string>
+    <string name="set_item_pwd">登录密码设置</string>
+    <string name="set_update">自动更新</string>
+    <string name="set_item_gesture">手势密码设置</string>
+    <string name="cancel">取消</string>
+    <string name="try_again">重试</string>
+    <string name="goon">继续</string>
+    <string name="confirm">确认</string>
+    <string name="sure">确定</string>
+    <string name="title_msg">消息</string>
+
+    <string name="title_leftmain">主标题</string>
+    <string name="title_leftsub">左侧次标题</string>
+</resources>
