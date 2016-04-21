@@ -6,9 +6,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.yjt.titlebar.TitleBarView;
 import com.yjt.titlebar.TitleBarConfig;
+import com.yjt.titlebar.barHelper.BarPosition;
 import com.yjt.titlebar.barentity.BarTextEntity;
 
 /**
@@ -19,6 +19,9 @@ import com.yjt.titlebar.barentity.BarTextEntity;
     protected int textcolor;
     protected String text;
     protected boolean isbacktext=false;
+    protected int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+            TitleBarConfig.DEFAULT_ITEM_TEXT_PADDING,
+            mcontext.getResources().getDisplayMetrics());
 
 
     public TextViewItem(TitleBarView titleBarView, BarTextEntity textbean){
@@ -33,13 +36,12 @@ import com.yjt.titlebar.barentity.BarTextEntity;
         barType= textbean.itemtype;
     }
 
+    protected void initTextView(BarPosition bp){
+
+    }
 
     @Override
     protected void buildView() {
-
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                TitleBarConfig.DEFAULT_ITEM_TEXT_PADDING,
-                mcontext.getResources().getDisplayMetrics());
         RelativeLayout.LayoutParams lp;
         switch(bp){
             case Left:
@@ -82,6 +84,7 @@ import com.yjt.titlebar.barentity.BarTextEntity;
             textView.setOnClickListener(titleBarView);
             textView.setBackgroundDrawable(backstateD);
         }
+        initTextView(bp);
     }
 
     @Override

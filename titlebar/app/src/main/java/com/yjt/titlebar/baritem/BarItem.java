@@ -55,7 +55,8 @@ public abstract class BarItem {
      */
     protected int getHeight(){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                TitleBarConfig.DEFAULT_ITEM_HEIGHT, mcontext.getResources().getDisplayMetrics());
+                TitleBarConfig.DEFAULT_ITEM_HEIGHT,
+                mcontext.getResources().getDisplayMetrics());
     }
 
     /**
@@ -66,6 +67,7 @@ public abstract class BarItem {
         buildView();
         return getItemView();
     }
+
     /**
      * 生成左侧LayoutParmas
      * @return

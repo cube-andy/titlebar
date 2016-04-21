@@ -9,19 +9,17 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-import com.yjt.titlebar.R;
+
 import com.yjt.titlebar.barHelper.BarOrder;
 import com.yjt.titlebar.barHelper.BarPosition;
 import com.yjt.titlebar.barHelper.TitleBarHelper;
-import com.yjt.titlebar.barHelper.TitleBarIDManager;
-import com.yjt.titlebar.barentity.BaseBarEntity;
-import com.yjt.titlebar.statusbar.SystemBarTintManager;
+import com.yjt.titlebar.barHelper.TitleBarUtil;
 import com.yjt.titlebar.barentity.BarCustomViewEntity;
 import com.yjt.titlebar.barentity.BarEntityFactory;
 import com.yjt.titlebar.barentity.BarImageEntity;
 import com.yjt.titlebar.barentity.BarMainSubEntity;
 import com.yjt.titlebar.barentity.BarTextEntity;
+import com.yjt.titlebar.statusbar.SystemBarTintManager;
 import com.yjt.titlebar.statusbar.SystemBarUtil;
 
 /**
@@ -65,6 +63,13 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
         barEntityFactory = new BarEntityFactory(this);
     }
 
+    public void addToWindow(View rootview){
+        Titlebar.addTitleBarView(this,rootview);
+    }
+    public void addToWindow(Activity act){
+        Titlebar.addTitleBarView(this,act);
+    }
+
     /**
      * 设置状态栏颜色为标题栏颜色
      * @param act
@@ -106,12 +111,14 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
         tintManager.setTintResource(res);
     }
 
+
+
     /**
      * 设置左边文字控件
      *
      * @param textres
      */
-    public void setLeftText(int textres) {
+    public void setLeftText(String textres) {
         setLeftText(textres, 0);
     }
     /**
@@ -119,7 +126,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param clickable
      * @param textres
      */
-    public void setLeftText(int textres,boolean clickable){
+    public void setLeftText(String textres,boolean clickable){
         setLeftText(textres,0,clickable);
     }
     /**
@@ -128,8 +135,12 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setLeftText(int textres, int textcolor) {
+    public void setLeftText(String textres, int textcolor) {
         setLeftText(textres,textcolor,true);
+    }
+
+    private void addLeftTextView(){
+
     }
     /**
      * 设置左边文字控件
@@ -138,9 +149,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textcolor
      * @param clickable
      */
-    public void setLeftText(int textres, int textcolor,boolean clickable){
+    public void setLeftText(String textres, int textcolor,boolean clickable){
         BarTextEntity entity = barEntityFactory.getBarEntityText(BarPosition.Left,
-                getResources().getString(textres),
+                textres,
                 textcolor,false,clickable);
         titlebarHelper.addView(entity);
     }
@@ -152,7 +163,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      *
      * @param textres
      */
-    public void setLeftBackText(int textres) {
+    public void setLeftBackText(String textres) {
         setLeftBackText(textres, 0);
     }
 
@@ -162,10 +173,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setLeftBackText(int textres, int textcolor) {
-
+    public void setLeftBackText(String textres, int textcolor) {
         BarTextEntity entity = barEntityFactory.getBarEntityText(BarPosition.Left,
-                getResources().getString(textres),
+                textres,
                 textcolor, true,true);
         titlebarHelper.addView(entity);
     }
@@ -198,7 +208,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      *
      * @param textres
      */
-    public void setRightText(int textres) {
+    public void setRightText(String textres) {
         setRightText(textres, 0);
     }
     /**
@@ -206,7 +216,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param clickable
      * @param textres
      */
-    public void setRightText(int textres,boolean clickable){
+    public void setRightText(String textres,boolean clickable){
         setRightText(textres,0,clickable);
     }
     /**
@@ -215,7 +225,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setRightText(int textres, int textcolor) {
+    public void setRightText(String textres, int textcolor) {
         setRightText(textres,textcolor,true);
     }
     /**
@@ -224,9 +234,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setRightText(int textres, int textcolor,boolean clickable){
+    public void setRightText(String textres, int textcolor,boolean clickable){
         BarTextEntity entity = barEntityFactory.getBarEntityText(BarPosition.Right,
-                getResources().getString(textres),
+                textres,
                 textcolor,false,clickable);
         titlebarHelper.addView(entity);
     }
@@ -259,7 +269,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      *
      * @param textres
      */
-    public void setCenterText(int textres) {
+    public void setCenterText(String textres) {
         setCenterText(textres, 0);
     }
     /**
@@ -268,7 +278,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setCenterText(int textres, int textcolor) {
+    public void setCenterText(String textres, int textcolor) {
         setCenterText(textres,textcolor,false);
     }
     /**
@@ -277,7 +287,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param clickable
      */
-    public void setCenterText(int textres,boolean clickable) {
+    public void setCenterText(String textres,boolean clickable) {
         setCenterText(textres, 0,clickable);
     }
 
@@ -287,10 +297,10 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textres
      * @param textcolor
      */
-    public void setCenterText(int textres, int textcolor,boolean clickable) {
+    public void setCenterText(String textres, int textcolor,boolean clickable) {
         if (findViewById(R.id.titlebar_center) != null) return;
         BarTextEntity entity = barEntityFactory.getBarEntityText(BarPosition.Center,
-                getResources().getString(textres),
+               textres,
                 textcolor,false,clickable);
         titlebarHelper.addView(entity);
     }
@@ -326,7 +336,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param subtextres
      */
 
-    public void setLeftMainSubText(int maintextres, int subtextres) {
+    public void setLeftMainSubText(String maintextres, String subtextres) {
         setLeftMainSubText(maintextres, subtextres, 0);
     }
     /**
@@ -336,7 +346,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param subtextres
      * @param textcolor
      */
-    public void setLeftMainSubText(int maintextres, int subtextres,int textcolor){
+    public void setLeftMainSubText(String maintextres, String subtextres,int textcolor){
         setLeftMainSubText(maintextres,subtextres,textcolor,false);
     }
     /**
@@ -348,12 +358,12 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param clickable
      */
 
-    public void setLeftMainSubText(int maintextres, int subtextres,
+    public void setLeftMainSubText(String maintextres, String subtextres,
                                    int textcolor,boolean clickable) {
         BarMainSubEntity entity = barEntityFactory
                 .getBarEntityMainSub(BarPosition.Left,
-                        getResources().getString(maintextres),
-                        getResources().getString(subtextres),
+                        maintextres,
+                        subtextres,
                         textcolor);
         titlebarHelper.addView(entity);
     }
@@ -365,7 +375,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param subtextres
      */
 
-    public void setCenterMainSubText(int maintextres, int subtextres) {
+    public void setCenterMainSubText(String maintextres, String subtextres) {
         setCenterMainSubText(maintextres, subtextres, 0);
     }
     /**
@@ -375,7 +385,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param subtextres
      */
 
-    public void setCenterMainSubText(int maintextres, int subtextres,boolean clickable) {
+    public void setCenterMainSubText(String maintextres, String subtextres,boolean clickable) {
         setCenterMainSubText(maintextres, subtextres, 0,clickable);
     }
     /**
@@ -386,7 +396,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param textcolor
      */
 
-    public void setCenterMainSubText(int maintextres, int subtextres,int textcolor) {
+    public void setCenterMainSubText(String maintextres, String subtextres,int textcolor) {
         setCenterMainSubText(maintextres,subtextres,textcolor,false);
     }
 
@@ -400,15 +410,14 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
          * @param clickable
          */
 
-    public void setCenterMainSubText(int maintextres, int subtextres,
+    public void setCenterMainSubText(String maintextres, String subtextres,
                                      int textcolor,boolean clickable) {
         if (findViewById(R.id.titlebar_center) != null) return;
         BarMainSubEntity entity = barEntityFactory
                 .getBarEntityMainSub(BarPosition.Center,
-                        getResources().getString(maintextres),
-                        getResources().getString(subtextres),
+                        maintextres,
+                        subtextres,
                         textcolor,clickable);
-
         titlebarHelper.addView(entity);
     }
 
@@ -419,13 +428,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @return
      */
     public View getLeftView(BarOrder bo) {
-        int id = TitleBarIDManager.getLeftId(bo);
-        if (findViewById(id) == null) {
-            Toast.makeText(getContext(),
-                    "none", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return findViewById(id);
+        return titlebarHelper.getBarView(BarPosition.Left,bo);
     }
 
     /**
@@ -435,13 +438,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @return
      */
     public View getRightView(BarOrder bo) {
-        int id = TitleBarIDManager.getRightId(bo);
-        if (findViewById(id) == null) {
-            Toast.makeText(getContext(),
-                    "none", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return findViewById(id);
+       return titlebarHelper.getBarView(BarPosition.Right,bo);
     }
 
     /**
@@ -450,13 +447,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @return
      */
     public View getCenterView() {
-        int id = TitleBarIDManager.getCenterId();
-        if (findViewById(id) == null){
-            Toast.makeText(getContext(),
-                    "none", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return findViewById(id);
+        return titlebarHelper.getBarView(BarPosition.Center,null);
     }
 
     /**
@@ -516,36 +507,21 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * 移除掉左侧View
      */
     public void removeAllLeftView() {
-        View left1 = findViewById(R.id.titlebar_left_1);
-        if (left1 == null) return;
-        removeView(left1);
-        View left2 = findViewById(R.id.titlebar_left_2);
-        if (left2 == null) return;
-        removeView(left2);
+        titlebarHelper.removeView(BarPosition.Left);
     }
 
     /**
      * 移除掉右侧View
      */
     public void removeAllRightView() {
-        View right1 = findViewById(R.id.titlebar_right_1);
-        if (right1 == null) return;
-        removeView(right1);
-        View right2 = findViewById(R.id.titlebar_right_2);
-        if (right2 == null) return;
-        removeView(right2);
-        View right3 = findViewById(R.id.titlebar_right_3);
-        if (right3 == null) return;
-        removeView(right3);
+        titlebarHelper.removeView(BarPosition.Right);
     }
 
     /**
      * 移除掉中间View
      */
     public void removeCenterView() {
-        View centerview = findViewById(R.id.titlebar_center);
-        if (centerview == null) return;
-        removeView(centerview);
+        titlebarHelper.removeView(BarPosition.Center);
     }
     /**
      * 删除左侧View
@@ -553,16 +529,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param bo
      */
     public void removeLeftView(BarOrder bo) {
-        switch (bo) {
-            case First:
-                if (findViewById(R.id.titlebar_left_1) != null)
-                    removeViewAt(0);
-                break;
-            case Second:
-                if (findViewById(R.id.titlebar_left_2) != null)
-                    removeViewAt(1);
-                break;
-        }
+        titlebarHelper.removeView(BarPosition.Left,bo);
     }
     /**
      * 删除左侧View
@@ -570,20 +537,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param bo
      */
     public void removeRightView(BarOrder bo) {
-        switch (bo) {
-            case First:
-                if (findViewById(R.id.titlebar_right_1) != null)
-                    removeViewAt(0);
-                break;
-            case Second:
-                if (findViewById(R.id.titlebar_right_2) != null)
-                    removeViewAt(1);
-                break;
-            case Third:
-                if (findViewById(R.id.titlebar_right_3) != null)
-                    removeViewAt(2);
-                break;
-        }
+        titlebarHelper.removeView(BarPosition.Right,bo);
     }
     /**
      * 清空标题栏所有VIEW

@@ -24,9 +24,10 @@ public abstract class BaseActivity extends FragmentActivity implements
         getWindow().setBackgroundDrawable(null);
         View rootview= LayoutInflater.from(this).inflate(getLayoutID(),null);
         setContentView(rootview);
+
         if(hasTitleBar()){
             titlebar = new TitleBarView(this);
-            ((ViewGroup)rootview).addView(titlebar,0);
+            titlebar.addToWindow(rootview);
             titlebar.setTitleBarCall(this);
         }
 

@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn3:
                 //TODO implement
-                titlebar.setCenterText(R.string.title_set);
+                titlebar.setCenterText(getResources().getString(R.string.title_set));
                 break;
             case R.id.btn4:
                 //TODO implement
@@ -91,8 +91,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 titlebar.setRightImage(R.mipmap.actionbar_icon_add);
                 break;
             case R.id.btn9:
-                titlebar.setCenterMainSubText(R.string.title_leftmain,
-                        R.string.title_leftsub,true);
+                titlebar.setCenterMainSubText(getResources().getString(R.string.title_leftmain),
+                        getResources().getString(R.string.title_leftsub),true);
                 break;
             case R.id.btn10:
                 //TODO implement
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 titlebar.setTitleBarBackColor(R.color.red);
                 break;
             case R.id.btn12:
-                titlebar.setRightText(R.string.sure, R.color.yellow);
+                titlebar.setRightText(getResources().getString(R.string.sure), R.color.yellow);
                 //TODO implement
                 break;
             case R.id.btn13:
@@ -120,11 +120,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
             case R.id.btn15:
                 //TODO implement
-                titlebar.setLeftMainSubText(R.string.title_leftmain, R.string.title_leftsub);
+                titlebar.setLeftMainSubText(getResources().getString(R.string.title_leftmain)
+                        , getResources().getString(R.string.title_leftsub));
                 break;
             case R.id.btn16:
                 //TODO implement
-                titlebar.setLeftBackText(R.string.title_msg);
+                titlebar.setLeftBackText(getResources().getString(R.string.title_msg));
                 break;
             case R.id.btn17:
                 //TODO implement
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn18:
                 //TODO implement
-                titlebar.setRightText(R.string.abc_search_hint);
+                titlebar.setRightText(getResources().getString(R.string.abc_search_hint));
                 break;
             case R.id.btn19:
                 //TODO implement

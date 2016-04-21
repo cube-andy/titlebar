@@ -1,11 +1,18 @@
 package com.yjt.titlebar.barHelper;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.yjt.titlebar.TitleBarConfig;
+import com.yjt.titlebar.TitleBarView;
 
 /**
  * Created by yujiangtao on 16/4/11.
@@ -61,6 +68,5 @@ public class TitleBarUtil {
         ColorStateList colorList = new ColorStateList(states, colors);
         return colorList;
     }
-
 
 }

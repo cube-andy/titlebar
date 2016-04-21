@@ -15,7 +15,7 @@ import com.yjt.titlebar.baritem.BarItem;
  */
 public class BarItemFactory {
 
-    public View createBarItem(TitleBarView titleBarView, BaseBarEntity barItem){
+    public BarItem createBarItem(TitleBarView titleBarView, BaseBarEntity barItem){
         BarItem item=null;
         switch (barItem.itemtype){
             case TTextView:
@@ -38,7 +38,7 @@ public class BarItemFactory {
                 item = new MainSubItem(titleBarView,mainSubEntity);
                 break;
         }
-        return item.getItem();
+        return item;
     }
 
 

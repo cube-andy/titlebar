@@ -17,6 +17,8 @@ public class ImageViewItem extends BarItem {
 
     private ImageView imageView;
     private int src;
+    protected  int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+            TitleBarConfig.DEFAULT_ITEM_BUTTON_PADDING,mcontext.getResources().getDisplayMetrics());
 
     public ImageViewItem(TitleBarView titleBarView, BarImageEntity itemImage){
         super(titleBarView);
@@ -29,8 +31,6 @@ public class ImageViewItem extends BarItem {
     }
     @Override
     protected void buildView() {
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                TitleBarConfig.DEFAULT_ITEM_BUTTON_PADDING,mcontext.getResources().getDisplayMetrics());
         RelativeLayout.LayoutParams lp;
         switch(bp){
             case Left:
