@@ -5,9 +5,16 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
+import com.yjt.titlebar.R;
+import com.yjt.titlebar.TitleBarConfig;
 import com.yjt.titlebar.TitleBarView;
 
 
@@ -17,14 +24,18 @@ import com.yjt.titlebar.TitleBarView;
 public class SystemBarUtil {
 
     public SystemBarTintManager tintManager=null;
+    private Activity activity;
 
-    public SystemBarUtil(Activity activity,TitleBarView view){
-        View rootview = (View) view.getParent();
-//        if(Build.VERSION.SDK_INT>)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            rootview.setFitsSystemWindows(true);
+    public SystemBarUtil(Activity activity){
+        this.activity = activity;
+        FrameLayout rootview = (FrameLayout) activity.findViewById(android.R.id.content);
+        ViewGroup viewGroup = (ViewGroup) rootview.getChildAt(0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            viewGroup.setFitsSystemWindows(true);
+            viewGroup.setClipToPadding(true);
+            initSystemBar(activity);
         }
-        initSystemBar(activity);
     }
 
 
@@ -34,8 +45,6 @@ public class SystemBarUtil {
         }
         tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
-        // 使用颜色资源
-        tintManager.setStatusBarTintResource(Color.TRANSPARENT);
     }
 
     @TargetApi(19)
@@ -53,5 +62,33 @@ public class SystemBarUtil {
 
     public SystemBarTintManager getSystemBarTintManager(){
         return tintManager;
+    }
+    /**
+     * 设置状态栏颜色为标题栏颜色
+     */
+    public void setStatusBarEnabled(){
+        tintManager.setTintColor(Color.parseColor(TitleBarConfig.DEFAULT_TITLEBAR_COLOR));
+    }
+    /**
+     * 恢复默认状态栏颜色为黑色
+     */
+    public void setStatusBarDefault(){
+        tintManager.setTintColor(Color.parseColor("#000000"));
+    }
+    /**
+     * 设置状态栏颜色
+     * @param act
+     * @param color
+     */
+    public void setStatusBarColor(Activity act,int color){
+        tintManager.setStatusBarTintColor(color);
+    }
+    /**
+     * 设置状态栏颜色
+     * @param act
+     * @param res
+     */
+    public void setStatusBarResource(Activity act,int res){
+        tintManager.setStatusBarTintResource(res);
     }
 }

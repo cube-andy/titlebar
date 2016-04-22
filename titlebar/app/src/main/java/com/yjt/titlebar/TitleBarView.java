@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-
 import com.yjt.titlebar.barHelper.BarOrder;
 import com.yjt.titlebar.barHelper.BarPosition;
 import com.yjt.titlebar.barHelper.TitleBarHelper;
@@ -19,7 +18,6 @@ import com.yjt.titlebar.barentity.BarEntityFactory;
 import com.yjt.titlebar.barentity.BarImageEntity;
 import com.yjt.titlebar.barentity.BarMainSubEntity;
 import com.yjt.titlebar.barentity.BarTextEntity;
-import com.yjt.titlebar.statusbar.SystemBarTintManager;
 import com.yjt.titlebar.statusbar.SystemBarUtil;
 
 /**
@@ -35,7 +33,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
     private TitlebarCallback callback = null;
     private TitleBarHelper titlebarHelper = null;
     private BarEntityFactory barEntityFactory = null;
-    private SystemBarTintManager tintManager=null;
+    private SystemBarUtil titlebarUtil = null;
+
+    private View rootView=null;
 
     public TitleBarView(Context context) {
         this(context, null);
@@ -61,31 +61,37 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
         this.setBackgroundColor(Color.parseColor(TitleBarConfig.DEFAULT_TITLEBAR_COLOR));
         titlebarHelper = new TitleBarHelper(this);
         barEntityFactory = new BarEntityFactory(this);
+
     }
 
     public void addToWindow(View rootview){
-        Titlebar.addTitleBarView(this,rootview);
+        this.rootView=rootview;
+        TitleBarUtil.addTitleBarView(this,rootview);
     }
     public void addToWindow(Activity act){
-        Titlebar.addTitleBarView(this,act);
+        this.rootView = act.findViewById(android.R.id.content);
+        TitleBarUtil.addTitleBarView(this,act);
     }
 
     /**
      * 设置状态栏颜色为标题栏颜色
      * @param act
      */
-    public void setStatusBarEnable(Activity act){
-        if(tintManager==null){
-            tintManager = new SystemBarUtil(act,this).getSystemBarTintManager();
+    public void setStatusBarEnabled(Activity act){
+        if(titlebarUtil == null){
+            titlebarUtil = new SystemBarUtil(act);
         }
-        tintManager.setTintColor(Color.parseColor(TitleBarConfig.DEFAULT_TITLEBAR_COLOR));
+        titlebarUtil.setStatusBarEnabled();
     }
 
     /**
      * 恢复默认状态栏颜色为黑色
      */
-    public void setStatusBarDefault(){
-        tintManager.setTintColor(Color.parseColor("#000000"));
+    public void setStatusBarDefault(Activity act){
+        if(titlebarUtil == null){
+            titlebarUtil = new SystemBarUtil(act);
+        }
+        titlebarUtil.setStatusBarDefault();
     }
 
     /**
@@ -94,10 +100,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param color
      */
     public void setStatusBarColor(Activity act,int color){
-        if(tintManager==null){
-            tintManager = new SystemBarUtil(act,this).getSystemBarTintManager();
-        }
-        tintManager.setTintColor(color);
+        titlebarUtil.setStatusBarColor(act,color);
     }
     /**
      * 设置状态栏颜色
@@ -105,10 +108,7 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      * @param res
      */
     public void setStatusBarResource(Activity act,int res){
-        if(tintManager==null){
-            tintManager = new SystemBarUtil(act,this).getSystemBarTintManager();
-        }
-        tintManager.setTintResource(res);
+       titlebarUtil.setStatusBarResource(act,res);
     }
 
 
@@ -120,6 +120,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
      */
     public void setLeftText(String textres) {
         setLeftText(textres, 0);
+    }
+    public void setLeftText(int textres){
+        setLeftText(getResources().getString(textres),0);
     }
     /**
      * 设置左边文字控件
@@ -139,9 +142,6 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
         setLeftText(textres,textcolor,true);
     }
 
-    private void addLeftTextView(){
-
-    }
     /**
      * 设置左边文字控件
      *
@@ -267,10 +267,14 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
     /**
      * 设置中间文本控件
      *
-     * @param textres
+     * @param text
      */
-    public void setCenterText(String textres) {
-        setCenterText(textres, 0);
+    public void setCenterText(String text) {
+        setCenterText(text, 0);
+    }
+
+    public void setCenterText(int textres){
+        setCenterText(getResources().getString(textres),0);
     }
     /**
      * 设置中间文字控件
@@ -349,6 +353,11 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
     public void setLeftMainSubText(String maintextres, String subtextres,int textcolor){
         setLeftMainSubText(maintextres,subtextres,textcolor,false);
     }
+
+    public void setLeftMainSubText(int maintextres,int subtextres,int textcolor){
+        setLeftMainSubText(getResources().getString(maintextres),
+                getResources().getString(subtextres),textcolor,false);
+    }
     /**
      * 添加左侧主次title类型的ITEM
      *
@@ -377,6 +386,11 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
 
     public void setCenterMainSubText(String maintextres, String subtextres) {
         setCenterMainSubText(maintextres, subtextres, 0);
+    }
+
+    public void setCenterMainSubText(int maintextres,int subtextres){
+        setCenterMainSubText(getResources().getString(maintextres),
+                getResources().getString(subtextres), 0);
     }
     /**
      * 添加中间主次title类型的ITEM
@@ -441,6 +455,9 @@ public class TitleBarView extends RelativeLayout implements OnClickListener {
        return titlebarHelper.getBarView(BarPosition.Right,bo);
     }
 
+    public void setVisible(int visible){
+        TitleBarUtil.setVisibility(this.rootView,this,visible);
+    }
     /**
      * 获取中间View
      *

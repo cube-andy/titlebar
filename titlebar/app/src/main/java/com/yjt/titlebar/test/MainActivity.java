@@ -5,15 +5,26 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yjt.titlebar.R;
+import com.yjt.titlebar.statusbar.SystemBarTintManager;
 import com.yjt.titlebar.widget.SwitchTV;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        titlebar.setStatusBarDefault(this);
+
+
+    }
 
     @Override
     protected void initControl(Bundle bundle) {
@@ -40,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.btn21).setOnClickListener(this);
         findViewById(R.id.btn22).setOnClickListener(this);
         findViewById(R.id.btn_clear).setOnClickListener(this);
+        findViewById(R.id.btn23).setOnClickListener(this);
     }
 
     @Override
@@ -64,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn4:
                 //TODO implement
+                if(titlebar.getCenterView()==null)return;
                 ((TextView) titlebar.getCenterView()).setText(R.string.sure);
                 break;
             case R.id.btn5:
@@ -72,7 +85,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn6:
                 //TODO implement
-
                 titlebar.setCenterImage(R.mipmap.status_edit_history_n);
                 break;
             case R.id.btn7:
@@ -108,11 +120,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.btn13:
                 //TODO implement
-                titlebar.setVisibility(View.GONE);
+                titlebar.setVisible(View.GONE);
                 break;
             case R.id.btn14:
                 //TODO implement
-                titlebar.setVisibility(View.VISIBLE);
+                titlebar.setVisible(View.VISIBLE);
                 break;
             case R.id.btn_clear:
                 titlebar.clearViews();
@@ -141,13 +153,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 titlebar.setRightView(aSwitch);
                 break;
             case R.id.btn20:
-                titlebar.setStatusBarEnable(this);
+                titlebar.setStatusBarEnabled(this);
                 break;
             case R.id.btn21:
                 titlebar.setStatusBarColor(this, Color.parseColor("#ff0000"));
                 break;
             case R.id.btn22:
-                titlebar.setStatusBarDefault();
+                titlebar.setStatusBarDefault(this);
+                break;
+            case R.id.btn23:
+                titlebar.setTitleBarBackColor(R.color.main_blue_color);
                 break;
         }
     }

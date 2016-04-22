@@ -2,7 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -142,7 +144,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="更换标题栏背景色" />
-
+                <Button
+                    android:id="@+id/btn23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="恢复背景色" />
 
             </LinearLayout>
 
@@ -202,11 +208,13 @@
                     android:id="@+id/btn20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="设置状态栏" />
+                    android:text="设置状态栏"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <Button
                     android:id="@+id/btn21"
